@@ -33,16 +33,8 @@ const iconSx = {
 
 const ButtonAppBar: React.FC<ButtonAppBarProps> = ({ toggleTheme, isAuthenticated, handleLogout }) => {
   const isMobile = useIsMobile();
-  const [firmName, setFirmName] = useState<string>('');
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const getFirmName = async () => {
-      setFirmName("My Firm Name");
-    };
-    getFirmName();
-  }, []);
 
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -78,7 +70,7 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = ({ toggleTheme, isAuthenticate
               navigate('/');
             }}
           >
-            {firmName}
+            Welcome
           </Typography>
           
           {/* Only show the Logout button if the user is authenticated */}
