@@ -3,9 +3,12 @@ from firebase_admin import credentials, firestore
 import requests
 from requests_oauthlib import OAuth2Session
 import os
+import json
 
-# Firebase setup
-cred = credentials.Certificate('firebase-credentials.json')  # Update with your actual path to Firebase credentials
+# Firebase setup - Load Firebase credentials from environment variable
+firebase_credentials = os.getenv('FIREBASE_CREDENTIALS_JSON')
+cred_dict = json.loads(firebase_credentials)
+cred = credentials.Certificate(cred_dict)  # Use the credentials from the JSON string
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
