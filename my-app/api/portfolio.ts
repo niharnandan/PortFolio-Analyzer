@@ -1,4 +1,4 @@
-import { initializeApp, credential, firestore } from 'firebase-admin';
+import firebaseAdmin from 'firebase-admin';  // Default import
 import * as functions from 'firebase-functions';
 import axios from 'axios';
 
@@ -13,10 +13,10 @@ const credDict = JSON.parse(firebaseCredentials);
 console.log('HERE', credDict);
 
 // Initialize Firebase Admin with credentials
-initializeApp({
-    credential: credential.cert(credDict)
+firebaseAdmin.initializeApp({
+    credential: firebaseAdmin.credential.cert(credDict)
 });
-const db = firestore();
+const db = firebaseAdmin.firestore();
 
 // E*TRADE API setup
 const ETRADE_API_KEY = process.env.ETRADE_API_KEY;
