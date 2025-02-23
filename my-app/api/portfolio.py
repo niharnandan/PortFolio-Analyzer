@@ -1,20 +1,27 @@
+import os
+import json
 import firebase_admin
 from firebase_admin import credentials, firestore
 import requests
 from requests_oauthlib import OAuth2Session
-import os
-import json
 
-# Firebase setup - Load Firebase credentials from environment variable
-firebase_credentials = os.getenv('FIREBASE_CREDENTIALS_JSON')
+# Firebase setup - Load credentials from the environment variable
+firebase_credentials = os.getenv('FIREBASE_CREDENTIALS')
+
+if not firebase_credentials:
+    raise ValueError("FIREBASE_CREDENTIALS environment variable is missing")
+
+# Parse the credentials JSON
 cred_dict = json.loads(firebase_credentials)
-cred = credentials.Certificate(cred_dict)  # Use the credentials from the JSON string
+
+# Initialize Firebase Admin with credentials
+cred = credentials.Certificate(cred_dict)
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 # E*TRADE API setup
-ETRADE_API_KEY = os.environ['ETRADE_API_KEY']
-ETRADE_API_SECRET = os.environ['ETRADE_API_SECRET']
+ETRADE_API_KEY = os.getenv('ETRADE_API_KEY')
+ETRADE_API_SECRET = os.getenv('ETRADE_API_SECRET')
 
 # OAuth setup (simplified, ensure correct OAuth flow)
 def get_access_token():
