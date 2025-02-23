@@ -23,13 +23,15 @@ const StyledBox = styled(Box)({
 
 interface ButtonAppBarProps {
   toggleTheme: () => void;
+  isAuthenticated: boolean;  // Add isAuthenticated as a prop
+  handleLogout: () => void;   // Add handleLogout as a prop
 }
 
 const iconSx = {
   marginRight: '-6px',
 };
 
-const ButtonAppBar: React.FC<ButtonAppBarProps> = ({ toggleTheme }) => {
+const ButtonAppBar: React.FC<ButtonAppBarProps> = ({ toggleTheme, isAuthenticated, handleLogout }) => {
   const isMobile = useIsMobile();
   const [firmName, setFirmName] = useState<string>('');
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -37,9 +39,8 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = ({ toggleTheme }) => {
 
   useEffect(() => {
     const getFirmName = async () => {
-      setFirmName("name");
+      setFirmName("My Firm Name");
     };
-
     getFirmName();
   }, []);
 
@@ -79,27 +80,18 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = ({ toggleTheme }) => {
           >
             {firmName}
           </Typography>
-          {!isMobile && (
+          
+          {/* Only show the Logout button if the user is authenticated */}
+          {isAuthenticated && (
             <Button
               color="inherit"
-              onClick={() => {
-                navigate('/about');
-              }}
-              startIcon={<InfoIcon sx={iconSx} />}
+              size={isMobile ? 'small' : 'medium'}
+              onClick={handleLogout}
+              startIcon={<ConnectWithoutContactIcon sx={iconSx} />}
             >
-              About
+              Logout
             </Button>
           )}
-          <Button
-            color="inherit"
-            size={isMobile ? 'small' : 'medium'}
-            onClick={() => {
-              navigate('/contact');
-            }}
-            startIcon={<ConnectWithoutContactIcon sx={iconSx} />}
-          >
-            Contact Us
-          </Button>
         </Toolbar>
       </AppBar>
 
@@ -123,15 +115,6 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = ({ toggleTheme }) => {
             }}
           >
             Home
-          </MenuItem>
-        )}
-        {isMobile && (
-          <MenuItem
-            onClick={() => {
-              handleNavigation('/about');
-            }}
-          >
-            About Us
           </MenuItem>
         )}
         <MenuItem
