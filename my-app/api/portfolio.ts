@@ -1,7 +1,6 @@
 import * as firebaseAdmin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import axios from 'axios';
-import { OAuth2Client } from 'google-auth-library';
 
 // Firebase setup - Load credentials from the environment variable
 const firebaseCredentials = process.env.FIREBASE_CREDENTIALS;
