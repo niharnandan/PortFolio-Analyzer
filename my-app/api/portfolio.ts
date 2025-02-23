@@ -9,8 +9,8 @@ if (!firebaseCredentials) {
     throw new Error("FIREBASE_CREDENTIALS environment variable is missing");
 }
 
-// Parse the credentials JSON
 const credDict = JSON.parse(firebaseCredentials);
+console.log('HERE', credDict);
 
 // Initialize Firebase Admin with credentials
 firebaseAdmin.initializeApp({
