@@ -93,3 +93,5 @@ export const handler = functions.https.onRequest(async (req, res) => {
         });
     }
 });
+
+export default handler;
