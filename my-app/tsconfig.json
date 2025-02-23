@@ -13,8 +13,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx", // This is for React 17+ JSX Transform
-    "module": "ESNext", // or "commonjs" depending on your setup
-    "target": "ESNext" // or "ES6"
+    "module": "ESNext", // Keep ESNext to support ES modules syntax
+    "target": "ESNext", // Or "ES6" if you need broader compatibility
+    "declaration": true,  // Optional: for generating declaration files (.d.ts)
+    "sourceMap": true      // Optional: if you want source maps for debugging
   },
   "include": ["src"]
 }
