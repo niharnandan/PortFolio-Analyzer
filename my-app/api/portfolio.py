@@ -45,8 +45,14 @@ def fetch_portfolio_data():
     data = response.json()
     return data['portfolio_value']  # Adjust depending on the actual response structure
 
-# This function will be triggered as the serverless function
+# This function will be triggered as the serverless function on Vercel
 def handler(request):
     portfolio_value = fetch_portfolio_data()
     store_in_firestore(portfolio_value)
-    return {"status": "success", "portfolio_value": portfolio_value}
+    return {
+        "statusCode": 200,
+        "body": json.dumps({"status": "success", "portfolio_value": portfolio_value}),
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
